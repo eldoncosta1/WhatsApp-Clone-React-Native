@@ -3,10 +3,12 @@ import {
     View,
     Text,
     ListView,
-    StyleSheet
+    StyleSheet,
+    TouchableHighlight
 } from "react-native";
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Actions } from 'react-native-router-flux';
 import { contatosUsuarioFetch } from '../actions/AppActions';
 
 class Contatos extends Component {    
@@ -26,18 +28,26 @@ class Contatos extends Component {
         this._fonteDeDados = dataSource.cloneWithRows(contatos)
     }
 
+    renderRow(contato) {
+        return (
+            <TouchableHighlight
+                onPress={() => Actions.conversa({title: contato.nome ,contatoNome: contato.nome, contatoEmail: contato.email })}
+                underlayColor='#ccc'
+            >
+                <View style={styles.viewList}>
+                    <Text style={styles.txtNameListView}>{contato.nome}</Text>
+                    <Text style={styles.txtEmailListView}>{contato.email}</Text>
+                </View>
+            </TouchableHighlight>
+        )
+    }
+
     render() {
         return (
             <ListView 
                 enableEmptySections
                 dataSource={this._fonteDeDados}
-                renderRow={data => (
-                        <View style={styles.viewList}>
-                            <Text style={styles.txtNameListView}>{data.nome}</Text>
-                            <Text style={styles.txtEmailListView}>{data.email}</Text>
-                        </View>
-                    )
-                }
+                renderRow={this.renderRow}
             />
         );
     }
