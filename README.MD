@@ -12,6 +12,7 @@ Esse aplicativo é um clone do whatsapp. Para iniciar sua utilização é necess
     * Redux
         * Redux thunk
     * ActivityIndicator
+    * React Native Tab View (https://github.com/react-native-community/react-native-tab-view)
     * Firebase
 
 ## Passos para criação do projeto
@@ -24,4 +25,6 @@ Esse aplicativo é um clone do whatsapp. Para iniciar sua utilização é necess
     * npm install --save firebase@3.9.0
     * npm install --save react-thunk
     * npm instal --save base-64
+    * npm install --save react-native-tab-view
+    * npm install --save lodash
     * react-native run-android

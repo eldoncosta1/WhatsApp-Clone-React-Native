@@ -6,7 +6,8 @@ import {
     Button,
     StyleSheet,
     TouchableHighlight,
-    ImageBackground
+    ImageBackground,
+    ActivityIndicator
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -27,6 +28,16 @@ class formLogin extends Component {
         }; 
 
         this.props.autenticarUsuario(params);
+    }
+
+    renderBtnEntrar() {
+        
+        if(this.props.loadingLogin) {
+            return ( <ActivityIndicator size="large" /> );
+        }
+        return(
+            <Button title="Entrar" color="#115e54" onPress={() => this._autenticarUsuario()} />
+        )
     }
 
     render() {
@@ -61,11 +72,7 @@ class formLogin extends Component {
                         
                     </View>
                     <View style={styles.contentFooter}>
-                        <Button
-                            title="Entrar"
-                            color="#115e54"
-                            onPress={() => this._autenticarUsuario()}
-                        />
+                        {this.renderBtnEntrar()}
                     </View>
                 </View>
             </ImageBackground>
@@ -76,7 +83,8 @@ class formLogin extends Component {
 const mapStateToProps = state => ({
         email: state.AutenticacaoReducer.email,
         senha: state.AutenticacaoReducer.senha,
-        msgErroLogin: state.AutenticacaoReducer.msgErroLogin
+        msgErroLogin: state.AutenticacaoReducer.msgErroLogin,
+        loadingLogin: state.AutenticacaoReducer.loadingLogin
 });
 export default connect(mapStateToProps, {
     modificaEmail,
